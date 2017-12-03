@@ -4,10 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -24,6 +21,7 @@ public class StopController {
 
     private RestTemplate restTemplate = new RestTemplate();
 
+    @CrossOrigin
     @RequestMapping(value = "stops", produces = "application/json; charset=ISO-8859-1")
     public String stops(@RequestParam Map<String, String> allRequestParams, ModelMap model) {
         Map<String, List<String>> map = allRequestParams.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> Collections.singletonList(e.getValue())));
@@ -35,6 +33,7 @@ public class StopController {
         return restTemplate.getForObject(uri, String.class);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "stops/{lat}/{lon}", produces = "application/json; charset=ISO-8859-1")
     public String stops(@RequestParam Map<String, String> allRequestParams, ModelMap model, @PathVariable("lat") String lat, @PathVariable("lon") String lon) {
         Map<String, List<String>> map = allRequestParams.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> Collections.singletonList(e.getValue())));
@@ -47,6 +46,7 @@ public class StopController {
         return restTemplate.getForObject(uri, String.class);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "stop/{id}", produces = "application/json; charset=ISO-8859-1")
     public String stop(@RequestParam Map<String, String> allRequestParams, ModelMap model, @PathVariable("id") String id) {
         Map<String, List<String>> map = allRequestParams.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> Collections.singletonList(e.getValue())));
@@ -59,6 +59,7 @@ public class StopController {
         return restTemplate.getForObject(uri, String.class);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "schedule/{id}/{line}/{direction}", produces = "application/json; charset=ISO-8859-1")
     public String schedule(@RequestParam Map<String, String> allRequestParams, ModelMap model, @PathVariable("id") String id, @PathVariable("line") String line, @PathVariable("direction") String direction) {
         Map<String, List<String>> map = allRequestParams.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> Collections.singletonList(e.getValue())));
